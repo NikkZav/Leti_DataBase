@@ -1,0 +1,1 @@
+EXEC Sales.GetDiscountsForCategoryAndDate 'Reseller';

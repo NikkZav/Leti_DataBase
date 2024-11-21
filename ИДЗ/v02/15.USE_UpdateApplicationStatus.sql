@@ -1,0 +1,1 @@
+EXEC UpdateApplicationStatus @ApplicationID = 1, @NewStatus = 'Принята';

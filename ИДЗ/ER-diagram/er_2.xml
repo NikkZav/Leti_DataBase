@@ -1,0 +1,387 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 YaBrowser/24.10.0.0 Safari/537.36" version="24.8.3">
+  <diagram name="Page-1" id="b520641d-4fe3-3701-9064-5fc419738815">
+    <mxGraphModel dx="2570" dy="682" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ApplicantTable" value="Entrant" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;tableStyle=1;rowLines=1;columnLines=1;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-80" y="190" width="280" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicantHeader" value="" style="shape=tableRow;horizontal=0;collapsible=0;pointerEvents=1;resizeLast=0;whiteSpace=wrap;html=1;" parent="ApplicantTable" vertex="1">
+          <mxGeometry y="30" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicantIDCellHeader" value="PK" style="shape=partialRectangle;fillColor=none;fontStyle=1;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicantHeader" vertex="1">
+          <mxGeometry x="40" width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantIDHeaderField" value="EntrantID&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicantHeader" vertex="1">
+          <mxGeometry x="70" width="210" height="30" as="geometry">
+            <mxRectangle width="210" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantLastNameRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;pointerEvents=1;resizeLast=0;whiteSpace=wrap;html=1;" parent="ApplicantTable" vertex="1">
+          <mxGeometry y="60" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicantLastNamePKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicantLastNameRow" vertex="1">
+          <mxGeometry x="40" width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantLastNameField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;LastName: NVARCHAR(50)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicantLastNameRow" vertex="1">
+          <mxGeometry x="70" width="210" height="30" as="geometry">
+            <mxRectangle width="210" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantFirstNameRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicantTable" vertex="1">
+          <mxGeometry y="90" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicantFirstNamePKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicantFirstNameRow" vertex="1">
+          <mxGeometry x="40" width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantFirstNameField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;FirstName: NVARCHAR(50)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicantFirstNameRow" vertex="1">
+          <mxGeometry x="70" width="210" height="30" as="geometry">
+            <mxRectangle width="210" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantMiddleNameRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicantTable" vertex="1">
+          <mxGeometry y="120" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicantMiddleNamePKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicantMiddleNameRow" vertex="1">
+          <mxGeometry x="40" width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantMiddleNameField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;MiddleName: NVARCHAR(50)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicantMiddleNameRow" vertex="1">
+          <mxGeometry x="70" width="210" height="30" as="geometry">
+            <mxRectangle width="210" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantDOBRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicantTable" vertex="1">
+          <mxGeometry y="150" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicantDOBPKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicantDOBRow" vertex="1">
+          <mxGeometry x="40" width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantDOBField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;DateOfBirth: DATE&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicantDOBRow" vertex="1">
+          <mxGeometry x="70" width="210" height="30" as="geometry">
+            <mxRectangle width="210" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantGenderRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicantTable" vertex="1">
+          <mxGeometry y="180" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicantGenderPKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicantGenderRow" vertex="1">
+          <mxGeometry x="40" width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantGenderField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;Gender: CHAR(1)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicantGenderRow" vertex="1">
+          <mxGeometry x="70" width="210" height="30" as="geometry">
+            <mxRectangle width="210" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantSNILSRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicantTable" vertex="1">
+          <mxGeometry y="210" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicantSNILSPKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicantSNILSRow" vertex="1">
+          <mxGeometry x="40" width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantSNILSField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;SNILS: CHAR(11)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicantSNILSRow" vertex="1">
+          <mxGeometry x="70" width="210" height="30" as="geometry">
+            <mxRectangle width="210" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantPassportRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicantTable" vertex="1">
+          <mxGeometry y="240" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicantPassportPKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicantPassportRow" vertex="1">
+          <mxGeometry x="40" width="30" height="30" as="geometry">
+            <mxRectangle width="30" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicantPassportField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;PassportNumber: CHAR(9)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicantPassportRow" vertex="1">
+          <mxGeometry x="70" width="210" height="30" as="geometry">
+            <mxRectangle width="210" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ProgramTable" value="EducationProgram" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;tableStyle=1;rowLines=1;columnLines=1;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-80" y="520" width="280" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ProgramHeader" value="" style="shape=tableRow;horizontal=0;collapsible=0;pointerEvents=1;resizeLast=0;whiteSpace=wrap;html=1;" parent="ProgramTable" vertex="1">
+          <mxGeometry y="30" width="280" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="ProgramIDCellHeader" value="PK" style="shape=partialRectangle;fillColor=none;fontStyle=1;strokeColor=none;whiteSpace=wrap;html=1;" parent="ProgramHeader" vertex="1">
+          <mxGeometry x="40" width="30" height="38" as="geometry">
+            <mxRectangle width="30" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ProgramIDHeaderField" value="EducationProgram&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;ID: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ProgramHeader" vertex="1">
+          <mxGeometry x="70" width="210" height="38" as="geometry">
+            <mxRectangle width="210" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ProgramNameRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;pointerEvents=1;resizeLast=0;whiteSpace=wrap;html=1;" parent="ProgramTable" vertex="1">
+          <mxGeometry y="68" width="280" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="ProgramNamePKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ProgramNameRow" vertex="1">
+          <mxGeometry x="40" width="30" height="37" as="geometry">
+            <mxRectangle width="30" height="37" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ProgramNameField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;ProgramName: NVARCHAR(100)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ProgramNameRow" vertex="1">
+          <mxGeometry x="70" width="210" height="37" as="geometry">
+            <mxRectangle width="210" height="37" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FacultyRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ProgramTable" vertex="1">
+          <mxGeometry y="105" width="280" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="FacultyPKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="FacultyRow" vertex="1">
+          <mxGeometry x="40" width="30" height="38" as="geometry">
+            <mxRectangle width="30" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FacultyField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;Faculty: NVARCHAR(100)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="FacultyRow" vertex="1">
+          <mxGeometry x="70" width="210" height="38" as="geometry">
+            <mxRectangle width="210" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EducationLevelRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ProgramTable" vertex="1">
+          <mxGeometry y="143" width="280" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="EducationLevelPKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="EducationLevelRow" vertex="1">
+          <mxGeometry x="40" width="30" height="37" as="geometry">
+            <mxRectangle width="30" height="37" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EducationLevelField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;EducationLevel: NVARCHAR(50)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="EducationLevelRow" vertex="1">
+          <mxGeometry x="70" width="210" height="37" as="geometry">
+            <mxRectangle width="210" height="37" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationTable" value="&lt;span style=&quot;font-family: Verdana; font-size: 14px;&quot;&gt;Application&lt;/span&gt;" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;tableStyle=1;rowLines=1;columnLines=1;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-430" y="310" width="230" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicationHeader" value="" style="shape=tableRow;horizontal=0;collapsible=0;pointerEvents=1;resizeLast=0;whiteSpace=wrap;html=1;" parent="ApplicationTable" vertex="1">
+          <mxGeometry y="30" width="230" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicationIDCellHeader" value="PK" style="shape=partialRectangle;fillColor=none;fontStyle=1;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicationHeader" vertex="1">
+          <mxGeometry x="40" width="24" height="36" as="geometry">
+            <mxRectangle width="24" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationIDHeaderField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;ApplicationID: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicationHeader" vertex="1">
+          <mxGeometry x="64" width="166" height="36" as="geometry">
+            <mxRectangle width="166" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationApplicantIDRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicationTable" vertex="1">
+          <mxGeometry y="66" width="230" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicationApplicantIDPKCell" value="FK" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;fontStyle=1;" parent="ApplicationApplicantIDRow" vertex="1">
+          <mxGeometry x="40" width="24" height="36" as="geometry">
+            <mxRectangle width="24" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationApplicantIDField" value="EntrantID&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicationApplicantIDRow" vertex="1">
+          <mxGeometry x="64" width="166" height="36" as="geometry">
+            <mxRectangle width="166" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationProgramIDRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicationTable" vertex="1">
+          <mxGeometry y="102" width="230" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicationProgramIDPKCell" value="FK" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;fontStyle=1;" parent="ApplicationProgramIDRow" vertex="1">
+          <mxGeometry x="40" width="24" height="36" as="geometry">
+            <mxRectangle width="24" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationProgramIDField" value="EducationProgramID&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicationProgramIDRow" vertex="1">
+          <mxGeometry x="64" width="166" height="36" as="geometry">
+            <mxRectangle width="166" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationDateRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicationTable" vertex="1">
+          <mxGeometry y="138" width="230" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicationDatePKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicationDateRow" vertex="1">
+          <mxGeometry x="40" width="24" height="36" as="geometry">
+            <mxRectangle width="24" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationDateField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;ApplicationDate: DATE&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicationDateRow" vertex="1">
+          <mxGeometry x="64" width="166" height="36" as="geometry">
+            <mxRectangle width="166" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationStatusRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ApplicationTable" vertex="1">
+          <mxGeometry y="174" width="230" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ApplicationStatusPKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ApplicationStatusRow" vertex="1">
+          <mxGeometry x="40" width="24" height="36" as="geometry">
+            <mxRectangle width="24" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ApplicationStatusField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;Status: NVARCHAR(50)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ApplicationStatusRow" vertex="1">
+          <mxGeometry x="64" width="166" height="36" as="geometry">
+            <mxRectangle width="166" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamTable" value="&lt;span style=&quot;font-family: Verdana; font-size: 14px;&quot;&gt;Exam&lt;/span&gt;" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;tableStyle=1;rowLines=1;columnLines=1;html=1;" parent="1" vertex="1">
+          <mxGeometry x="320" y="190" width="220" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ExamHeader" value="" style="shape=tableRow;horizontal=0;collapsible=0;pointerEvents=1;resizeLast=0;whiteSpace=wrap;html=1;" parent="ExamTable" vertex="1">
+          <mxGeometry y="30" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ExamIDCellHeader" value="PK" style="shape=partialRectangle;fillColor=none;fontStyle=1;strokeColor=none;whiteSpace=wrap;html=1;" parent="ExamHeader" vertex="1">
+          <mxGeometry x="40" width="23" height="36" as="geometry">
+            <mxRectangle width="23" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamIDHeaderField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;ExamID: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ExamHeader" vertex="1">
+          <mxGeometry x="63" width="157" height="36" as="geometry">
+            <mxRectangle width="157" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamApplicantIDRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ExamTable" vertex="1">
+          <mxGeometry y="66" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ExamApplicantIDPKCell" value="FK" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;fontStyle=1;" parent="ExamApplicantIDRow" vertex="1">
+          <mxGeometry x="40" width="23" height="36" as="geometry">
+            <mxRectangle width="23" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamApplicantIDField" value="EntrantID&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ExamApplicantIDRow" vertex="1">
+          <mxGeometry x="63" width="157" height="36" as="geometry">
+            <mxRectangle width="157" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamSubjectRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ExamTable" vertex="1">
+          <mxGeometry y="102" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ExamSubjectPKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ExamSubjectRow" vertex="1">
+          <mxGeometry x="40" width="23" height="36" as="geometry">
+            <mxRectangle width="23" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamSubjectField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;Subject: NVARCHAR(50)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ExamSubjectRow" vertex="1">
+          <mxGeometry x="63" width="157" height="36" as="geometry">
+            <mxRectangle width="157" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamScoreRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ExamTable" vertex="1">
+          <mxGeometry y="138" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ExamScorePKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ExamScoreRow" vertex="1">
+          <mxGeometry x="40" width="23" height="36" as="geometry">
+            <mxRectangle width="23" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamScoreField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;ExamScore: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ExamScoreRow" vertex="1">
+          <mxGeometry x="63" width="157" height="36" as="geometry">
+            <mxRectangle width="157" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamDateRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="ExamTable" vertex="1">
+          <mxGeometry y="174" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="ExamDatePKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="ExamDateRow" vertex="1">
+          <mxGeometry x="40" width="23" height="36" as="geometry">
+            <mxRectangle width="23" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ExamDateField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;ExamDate: DATE&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="ExamDateRow" vertex="1">
+          <mxGeometry x="63" width="157" height="36" as="geometry">
+            <mxRectangle width="157" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RequiredExamsTable" value="&lt;span style=&quot;font-family: Verdana; font-size: 14px;&quot;&gt;RequiredExams&lt;/span&gt;" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;tableStyle=1;rowLines=1;columnLines=1;html=1;" parent="1" vertex="1">
+          <mxGeometry x="320" y="520" width="220" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="RequiredExamsHeader" value="" style="shape=tableRow;horizontal=0;collapsible=0;pointerEvents=1;resizeLast=0;whiteSpace=wrap;html=1;" parent="RequiredExamsTable" vertex="1">
+          <mxGeometry y="30" width="220" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="RequiredExamsProgramIDCellHeader" value="PK" style="shape=partialRectangle;fillColor=none;fontStyle=1;strokeColor=none;whiteSpace=wrap;html=1;" parent="RequiredExamsHeader" vertex="1">
+          <mxGeometry x="40" width="21" height="38" as="geometry">
+            <mxRectangle width="21" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RequiredExamsProgramIDHeaderField" value="RequiredExamID&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="RequiredExamsHeader" vertex="1">
+          <mxGeometry x="61" width="159" height="38" as="geometry">
+            <mxRectangle width="159" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8d8ceNdLCa5SW4udM07x-46" value="" style="shape=tableRow;horizontal=0;collapsible=0;pointerEvents=1;resizeLast=0;whiteSpace=wrap;html=1;" vertex="1" parent="RequiredExamsTable">
+          <mxGeometry y="68" width="220" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="8d8ceNdLCa5SW4udM07x-47" value="FK" style="shape=partialRectangle;fillColor=none;fontStyle=1;strokeColor=none;whiteSpace=wrap;html=1;" vertex="1" parent="8d8ceNdLCa5SW4udM07x-46">
+          <mxGeometry x="40" width="21" height="38" as="geometry">
+            <mxRectangle width="21" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8d8ceNdLCa5SW4udM07x-48" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;ProgramID: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" vertex="1" parent="8d8ceNdLCa5SW4udM07x-46">
+          <mxGeometry x="61" width="159" height="38" as="geometry">
+            <mxRectangle width="159" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RequiredExamsSubjectRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="RequiredExamsTable" vertex="1">
+          <mxGeometry y="106" width="220" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="RequiredExamsSubjectPKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;fontStyle=1;" parent="RequiredExamsSubjectRow" vertex="1">
+          <mxGeometry x="40" width="21" height="36" as="geometry">
+            <mxRectangle width="21" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RequiredExamsSubjectField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;Subject: NVARCHAR(50)&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="RequiredExamsSubjectRow" vertex="1">
+          <mxGeometry x="61" width="159" height="36" as="geometry">
+            <mxRectangle width="159" height="36" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RequiredExamsMinScoreRow" value="" style="shape=tableRow;horizontal=0;collapsible=0;whiteSpace=wrap;html=1;" parent="RequiredExamsTable" vertex="1">
+          <mxGeometry y="142" width="220" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="RequiredExamsMinScorePKCell" value="" style="shape=partialRectangle;fillColor=none;strokeColor=none;whiteSpace=wrap;html=1;" parent="RequiredExamsMinScoreRow" vertex="1">
+          <mxGeometry x="40" width="21" height="38" as="geometry">
+            <mxRectangle width="21" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RequiredExamsMinScoreField" value="&lt;span style=&quot;font-family:Arial, sans-serif; font-size:12px;&quot;&gt;MinScore: INT&lt;/span&gt;" style="shape=partialRectangle;fillColor=none;strokeColor=none;align=left;spacingLeft=5;whiteSpace=wrap;html=1;" parent="RequiredExamsMinScoreRow" vertex="1">
+          <mxGeometry x="61" width="159" height="38" as="geometry">
+            <mxRectangle width="159" height="38" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8d8ceNdLCa5SW4udM07x-24" value="" style="fontSize=12;html=1;endArrow=ERoneToMany;startArrow=ERmandOne;edgeStyle=entityRelationEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="ProgramIDHeaderField" target="8d8ceNdLCa5SW4udM07x-46">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="250" y="520" as="sourcePoint" />
+            <mxPoint x="350" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8d8ceNdLCa5SW4udM07x-28" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ApplicantIDHeaderField" target="ExamApplicantIDRow">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="320" y="475" as="sourcePoint" />
+            <mxPoint x="420" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8d8ceNdLCa5SW4udM07x-29" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ApplicantHeader" target="ApplicationApplicantIDField">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="-270" y="170" as="sourcePoint" />
+            <mxPoint x="-170" y="209" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8d8ceNdLCa5SW4udM07x-30" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERzeroToMany;startArrow=ERmandOne;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ProgramHeader" target="ApplicationProgramIDField">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="-200" y="110" as="sourcePoint" />
+            <mxPoint x="-360" y="269" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

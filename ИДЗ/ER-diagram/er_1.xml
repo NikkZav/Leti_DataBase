@@ -1,0 +1,53 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 YaBrowser/24.10.0.0 Safari/537.36" version="24.8.3" pages="2">
+  <diagram name="ER_Diagram" id="ER_Diagram_ID">
+    <mxGraphModel dx="844" dy="1095" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Applicant" value="&lt;b&gt;Applicant&lt;/b&gt;&lt;br/&gt;ApplicantID (PK)&lt;br/&gt;LastName&lt;br/&gt;FirstName&lt;br/&gt;MiddleName&lt;br/&gt;DateOfBirth&lt;br/&gt;Gender&lt;br/&gt;SNILS&lt;br/&gt;PassportNumber" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="60" y="60" width="160" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="Program" value="&lt;b&gt;Program&lt;/b&gt;&lt;br/&gt;ProgramID (PK)&lt;br/&gt;ProgramName&lt;br/&gt;Faculty&lt;br/&gt;EducationLevel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="540" y="425" width="160" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Application" value="&lt;b&gt;Application&lt;/b&gt;&lt;br/&gt;ApplicationID (PK)&lt;br/&gt;ApplicantID (FK)&lt;br/&gt;ProgramID (FK)&lt;br/&gt;ApplicationDate&lt;br/&gt;Status" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="60" y="435" width="160" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Exam" value="&lt;b&gt;Exam&lt;/b&gt;&lt;br/&gt;ExamID (PK)&lt;br/&gt;ApplicantID (FK)&lt;br/&gt;Subject&lt;br/&gt;ExamScore&lt;br/&gt;ExamDate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="330" y="90" width="160" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="RequiredExams" value="&lt;b&gt;RequiredExams&lt;/b&gt;&lt;br/&gt;ProgramID (PK, FK)&lt;br/&gt;Subject (PK)&lt;br/&gt;MinScore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="540" y="110" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Applicant_to_Application" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;loopDirection=0;strokeColor=#000000;" parent="1" source="Applicant" target="Application" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="140" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Program_to_Application" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;loopDirection=0;strokeColor=#000000;" parent="1" source="Program" target="Application" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Applicant_to_Exam" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;loopDirection=0;strokeColor=#000000;" parent="1" source="Applicant" target="Exam" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="140" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Program_to_RequiredExams" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;loopDirection=0;strokeColor=#000000;" parent="1" source="Program" target="RequiredExams" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="620" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="AgoR23OMhOI54fjC0TmO" name="Страница — 2">
+    <mxGraphModel dx="464" dy="602" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -4,6 +4,7 @@ CREATE TABLE Application (
     EducationProgramID INT NOT NULL,
     ApplicationDate DATE NOT NULL,
     Status NVARCHAR(50) NULL,
+	UNIQUE (EntrantID, EducationProgramID),
     FOREIGN KEY (EntrantID) REFERENCES Entrant(EntrantID),
     FOREIGN KEY (EducationProgramID) REFERENCES EducationProgram(EducationProgramID)
 );

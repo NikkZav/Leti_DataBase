@@ -1,0 +1,969 @@
+Понял вашу задачу. Давайте полностью пересоздадим базу данных UniversityAdmission с учётом всех новых сущностей, добавлением поля BudgetPlaces в таблицу EducationProgram, а также реализуем дополнительные объекты промежуточного слоя (представления, хранимые процедуры и пользовательские функции), необходимые для выполнения ваших требований.
+
+Разработка базы данных для обеспечения работы приёмной комиссии университета
+Содержание
+Краткое описание предметной области
+Проектирование базы данных (структура данных)
+a. Основные сущности и их атрибуты
+b. Связи между сущностями
+c. ER-диаграмма
+Создание базы данных
+Создание таблиц и ограничений целостности
+Таблица Entrant (Абитуриент)
+Таблица EducationProgram (Образовательная программа)
+Таблица Application (Заявка)
+Таблица Exam (ЕГЭ)
+Таблица RequiredExams (Требуемые экзамены)
+Заполнение таблиц данными
+Разработка объектов промежуточного слоя
+Представления
+Хранимые процедуры
+Пользовательские функции (UDF)
+Разработка стратегии резервного копирования
+Заключение
+<a name="1-краткое-описание-предметной-области"></a>
+
+1. Краткое описание предметной области
+База данных для приёмной комиссии университета предназначена для автоматизации процессов приёма абитуриентов, хранения и обработки их заявлений, экзаменационных результатов, а также управления образовательными программами. Система обеспечивает:
+
+Регистрацию и учёт абитуриентов с уникальной идентификацией.
+Управление образовательными программами и их требованиями.
+Подачу заявок на поступление и отслеживание их статусов.
+Учёт результатов Единого государственного экзамена (ЕГЭ) абитуриентов.
+Контроль соответствия заявок требованиям образовательных программ.
+Цель базы данных — повысить эффективность работы приёмной комиссии, обеспечить целостность и доступность данных, а также упростить процессы принятия решений о приёме абитуриентов.
+
+<a name="2-проектирование-базы-данных-структура-данных"></a>
+
+2. Проектирование базы данных (структура данных)
+a. Основные сущности и их атрибуты
+Основными сущностями в базе данных являются:
+
+Entrant (Абитуриент)
+EducationProgram (Образовательная программа)
+Application (Заявка)
+Exam (ЕГЭ)
+RequiredExams (Требуемые экзамены)
+Таблица "Entrant" (Абитуриент)
+Поле	Тип данных	Описание	Ограничения
+EntrantID	INT	Уникальный идентификатор	PRIMARY KEY, IDENTITY(1,1)
+LastName	NVARCHAR(50)	Фамилия	NOT NULL
+FirstName	NVARCHAR(50)	Имя	NOT NULL
+MiddleName	NVARCHAR(50)	Отчество	NULL
+DateOfBirth	DATE	Дата рождения	NOT NULL
+Gender	CHAR(1)	Пол (M/F)	NOT NULL, CHECK (Gender IN ('M', 'F'))
+SNILS	CHAR(11)	СНИЛС	UNIQUE, NOT NULL
+PassportNumber	CHAR(9)	Номер паспорта	UNIQUE, NOT NULL
+Таблица "EducationProgram" (Образовательная программа)
+Поле	Тип данных	Описание	Ограничения
+EducationProgramID	INT	Уникальный идентификатор	PRIMARY KEY, IDENTITY(1,1)
+ProgramName	NVARCHAR(100)	Название программы	NOT NULL
+Faculty	NVARCHAR(100)	Название факультета	NOT NULL
+EducationLevel	NVARCHAR(50)	Уровень образования (Бакалавриат, Магистратура и т.д.)	NULL
+BudgetPlaces	INT	Количество бюджетных мест	NOT NULL, DEFAULT 0
+Таблица "Application" (Заявка)
+Поле	Тип данных	Описание	Ограничения
+ApplicationID	INT	Уникальный идентификатор	PRIMARY KEY, IDENTITY(1,1)
+EntrantID	INT	Идентификатор абитуриента	FOREIGN KEY REFERENCES Entrant(EntrantID)
+EducationProgramID	INT	Идентификатор образовательной программы	FOREIGN KEY REFERENCES EducationProgram(EducationProgramID)
+ApplicationDate	DATE	Дата подачи заявки	NOT NULL
+Status	NVARCHAR(50)	Статус заявки (Подана, Принята, Отклонена и т.д.)	NULL
+Таблица "Exam" (ЕГЭ)
+Поле	Тип данных	Описание	Ограничения
+ExamID	INT	Уникальный идентификатор	PRIMARY KEY, IDENTITY(1,1)
+EntrantID	INT	Идентификатор абитуриента	FOREIGN KEY REFERENCES Entrant(EntrantID)
+Subject	NVARCHAR(50)	Название предмета экзамена	NOT NULL
+ExamScore	INT	Балл за экзамен	CHECK (ExamScore BETWEEN 0 AND 100)
+ExamDate	DATE	Дата сдачи экзамена	NOT NULL
+Таблица "RequiredExams" (Требуемые экзамены)
+Поле	Тип данных	Описание	Ограничения
+RequiredExamID	INT	Уникальный идентификатор (суррогатный)	PRIMARY KEY, IDENTITY(1,1)
+ProgramID	INT	Идентификатор образовательной программы	FOREIGN KEY REFERENCES EducationProgram(EducationProgramID)
+Subject	NVARCHAR(50)	Название требуемого предмета	NOT NULL
+MinScore	INT	Минимальный проходной балл	CHECK (MinScore BETWEEN 0 AND 100)
+UNIQUE (ProgramID, Subject)	-	-	Обеспечивает уникальность сочетания ProgramID и Subject
+Примечание: Таблица RequiredExams использует суррогатный первичный ключ RequiredExamID и уникальное ограничение на комбинацию ProgramID и Subject для обеспечения уникальности требований.
+
+b. Связи между сущностями
+Entrant ↔ Application: Один-ко-многим
+
+Один абитуриент может подать несколько заявок на разные программы.
+Каждая заявка обязательно связана с одним абитуриентом.
+EducationProgram ↔ Application: Один-ко-многим
+
+Одна образовательная программа может иметь множество заявок от разных абитуриентов.
+Каждая заявка обязательно относится к одной программе.
+EducationProgram ↔ RequiredExams: Один-ко-многим
+
+Одна программа должна иметь несколько обязательных экзаменов.
+Каждый требуемый экзамен обязательно связан с одной программой.
+Entrant ↔ Exam: Один-ко-многим
+
+Один абитуриент может сдавать несколько экзаменов.
+Каждый экзамен обязательно связан с одним абитуриентом.
+Итоговая схема связей:
+
+Entrant (1) ↔ (M) Application
+EducationProgram (1) ↔ (M) Application
+EducationProgram (1) ↔ (M) RequiredExams
+Entrant (1) ↔ (M) Exam
+c. ER-диаграмма
+Для визуализации структуры базы данных рекомендуется использовать инструмент Draw.io (app.diagrams.net). Ниже приведена текстовая версия ER-диаграммы:
+
+[Entrant] 1---M [Application] M---1 [EducationProgram]
+    |
+    M
+    |
+[Exam]
+
+[EducationProgram] 1---M [RequiredExams]
+Описание:
+
+Entrant связан с Application отношением один-ко-многим.
+EducationProgram связан с Application отношением один-ко-многим.
+Entrant связан с Exam отношением один-ко-многим.
+EducationProgram связан с RequiredExams отношением один-ко-многим.
+<a name="3-создание-базы-данных"></a>
+
+3. Создание базы данных
+Для создания базы данных запустим следующий код:
+
+CREATE DATABASE UniversityAdmission;
+Использовать созданную базу данных:
+
+USE UniversityAdmission;
+GO
+<a name="4-создание-таблиц-и-ограничений-целостности"></a>
+
+4. Создание таблиц и ограничений целостности
+Ниже представлены SQL-команды для создания всех необходимых таблиц с учётом ограничений целостности и добавлением поля BudgetPlaces в таблицу EducationProgram.
+
+Таблица "Entrant" (Абитуриент)
+CREATE TABLE Entrant (
+    EntrantID INT IDENTITY(1,1) PRIMARY KEY,
+    LastName NVARCHAR(50) NOT NULL,
+    FirstName NVARCHAR(50) NOT NULL,
+    MiddleName NVARCHAR(50) NULL,
+    DateOfBirth DATE NOT NULL,
+    Gender CHAR(1) NOT NULL CHECK (Gender IN ('M', 'F')),
+    SNILS CHAR(11) UNIQUE NOT NULL,
+    PassportNumber CHAR(9) UNIQUE NOT NULL
+);
+Таблица "EducationProgram" (Образовательная программа)
+CREATE TABLE EducationProgram (
+    EducationProgramID INT IDENTITY(1,1) PRIMARY KEY,
+    ProgramName NVARCHAR(100) NOT NULL,
+    Faculty NVARCHAR(100) NOT NULL,
+    EducationLevel NVARCHAR(50) NULL,
+    BudgetPlaces INT NOT NULL DEFAULT 0
+);
+Таблица "Application" (Заявка)
+CREATE TABLE Application (
+    ApplicationID INT IDENTITY(1,1) PRIMARY KEY,
+    EntrantID INT NOT NULL,
+    EducationProgramID INT NOT NULL,
+    ApplicationDate DATE NOT NULL,
+    Status NVARCHAR(50) NULL,
+    FOREIGN KEY (EntrantID) REFERENCES Entrant(EntrantID),
+    FOREIGN KEY (EducationProgramID) REFERENCES EducationProgram(EducationProgramID)
+);
+Таблица "Exam" (ЕГЭ)
+CREATE TABLE Exam (
+    ExamID INT IDENTITY(1,1) PRIMARY KEY,
+    EntrantID INT NOT NULL,
+    Subject NVARCHAR(50) NOT NULL,
+    ExamScore INT CHECK (ExamScore BETWEEN 0 AND 100),
+    ExamDate DATE NOT NULL,
+    FOREIGN KEY (EntrantID) REFERENCES Entrant(EntrantID)
+);
+Таблица "RequiredExams" (Требуемые экзамены)
+CREATE TABLE RequiredExams (
+    RequiredExamID INT IDENTITY(1,1) PRIMARY KEY,
+    ProgramID INT NOT NULL,
+    Subject NVARCHAR(50) NOT NULL,
+    MinScore INT CHECK (MinScore BETWEEN 0 AND 100),
+    UNIQUE (ProgramID, Subject),
+    FOREIGN KEY (ProgramID) REFERENCES EducationProgram(EducationProgramID)
+);
+Примечания:
+
+Таблица RequiredExams теперь имеет суррогатный первичный ключ RequiredExamID.
+Уникальность сочетания ProgramID и Subject обеспечивается с помощью UNIQUE ограничения.
+Поле BudgetPlaces добавлено в таблицу EducationProgram с типом INT, ограничением NOT NULL и значением по умолчанию 0.
+<a name="5-заполнение-таблиц-данными"></a>
+
+5. Заполнение таблиц данными
+Для демонстрации работы базы данных заполним таблицы примерными данными. Добавим больше записей для обеспечения функциональности дополнительных объектов промежуточного слоя.
+
+Добавление абитуриентов
+INSERT INTO Entrant (LastName, FirstName, MiddleName, DateOfBirth, Gender, SNILS, PassportNumber)
+VALUES
+('Иванов', 'Иван', 'Иванович', '2003-08-15', 'M', '12345678901', '123456789'),
+('Петрова', 'Анна', 'Сергеевна', '2002-05-22', 'F', '23456789012', '234567890'),
+('Сидоров', 'Пётр', 'Алексеевич', '2003-11-30', 'M', '34567890123', '345678901'),
+('Кузнецов', 'Алексей', 'Петрович', '2004-01-10', 'M', '45678901234', '456789012'),
+('Смирнова', 'Мария', 'Андреевна', '2003-03-18', 'F', '56789012345', '567890123'),
+('Волков', 'Дмитрий', 'Игоревич', '2002-07-22', 'M', '67890123456', '678901234'),
+('Зайцева', 'Елена', 'Викторовна', '2004-09-05', 'F', '78901234567', '789012345'),
+('Попов', 'Сергей', 'Николаевич', '2003-11-30', 'M', '89012345678', '890123456');
+Добавление образовательных программ
+INSERT INTO EducationProgram (ProgramName, Faculty, EducationLevel, BudgetPlaces)
+VALUES
+('Программная инженерия', 'Факультет информационных технологий', 'Бакалавриат', 10),
+('Прикладная математика', 'Факультет прикладной математики', 'Бакалавриат', 15),
+('Информационные системы', 'Факультет информационных технологий', 'Магистратура', 8),
+('Экономика', 'Факультет экономики', 'Бакалавриат', 15),
+('Юриспруденция', 'Юридический факультет', 'Бакалавриат', 20),
+('Международные отношения', 'Факультет международных отношений', 'Бакалавриат', 10),
+('Журналистика', 'Факультет журналистики', 'Бакалавриат', 12);
+Добавление требований по экзаменам для программ
+-- Программная инженерия (ProgramID = 1)
+INSERT INTO RequiredExams (ProgramID, Subject, MinScore)
+VALUES
+(1, 'Математика', 70),
+(1, 'Русский язык', 60),
+(1, 'Информатика', 65);
+
+-- Прикладная математика (ProgramID = 2)
+INSERT INTO RequiredExams (ProgramID, Subject, MinScore)
+VALUES
+(2, 'Математика', 75),
+(2, 'Русский язык', 60),
+(2, 'Обществознание', 70);
+
+-- Информационные системы (ProgramID = 3)
+INSERT INTO RequiredExams (ProgramID, Subject, MinScore)
+VALUES
+(3, 'Математика', 80),
+(3, 'Русский язык', 70),
+(3, 'Информатика', 75);
+
+-- Экономика (ProgramID = 4)
+INSERT INTO RequiredExams (ProgramID, Subject, MinScore)
+VALUES
+(4, 'Математика', 65),
+(4, 'Русский язык', 60),
+(4, 'Обществознание', 70);
+
+-- Юриспруденция (ProgramID = 5)
+INSERT INTO RequiredExams (ProgramID, Subject, MinScore)
+VALUES
+(5, 'История', 65),
+(5, 'Русский язык', 60),
+(5, 'Обществознание', 70);
+
+-- Международные отношения (ProgramID = 6)
+INSERT INTO RequiredExams (ProgramID, Subject, MinScore)
+VALUES
+(6, 'Иностранный язык', 75),
+(6, 'Русский язык', 65),
+(6, 'История', 70);
+
+-- Журналистика (ProgramID = 7)
+INSERT INTO RequiredExams (ProgramID, Subject, MinScore)
+VALUES
+(7, 'Русский язык', 70),
+(7, 'Литература', 65),
+(7, 'Обществознание', 60);
+Добавление экзаменов абитуриентов
+-- Абитуриент 1 (Иванов Иван Иванович)
+INSERT INTO Exam (EntrantID, Subject, ExamScore, ExamDate)
+VALUES
+(1, 'Математика', 78, '2024-06-15'),
+(1, 'Русский язык', 65, '2024-06-16'),
+(1, 'Информатика', 70, '2024-06-17');
+
+-- Абитуриент 2 (Петрова Анна Сергеевна)
+INSERT INTO Exam (EntrantID, Subject, ExamScore, ExamDate)
+VALUES
+(2, 'Математика', 82, '2024-06-15'),
+(2, 'Русский язык', 75, '2024-06-16'),
+(2, 'Обществознание', 80, '2024-06-17');
+
+-- Абитуриент 3 (Сидоров Пётр Алексеевич)
+INSERT INTO Exam (EntrantID, Subject, ExamScore, ExamDate)
+VALUES
+(3, 'Математика', 68, '2024-06-15'),
+(3, 'Русский язык', 58, '2024-06-16'),
+(3, 'Информатика', 60, '2024-06-17');
+
+-- Абитуриент 4 (Кузнецов Алексей Петрович)
+INSERT INTO Exam (EntrantID, Subject, ExamScore, ExamDate)
+VALUES
+(4, 'Математика', 85, '2024-06-15'),
+(4, 'Русский язык', 78, '2024-06-16'),
+(4, 'Обществознание', 80, '2024-06-17');
+
+-- Абитуриент 5 (Смирнова Мария Андреевна)
+INSERT INTO Exam (EntrantID, Subject, ExamScore, ExamDate)
+VALUES
+(5, 'История', 88, '2024-06-15'),
+(5, 'Русский язык', 82, '2024-06-16'),
+(5, 'Обществознание', 85, '2024-06-17');
+
+-- Абитуриент 6 (Волков Дмитрий Игоревич)
+INSERT INTO Exam (EntrantID, Subject, ExamScore, ExamDate)
+VALUES
+(6, 'Иностранный язык', 90, '2024-06-15'),
+(6, 'Русский язык', 85, '2024-06-16'),
+(6, 'История', 78, '2024-06-17');
+
+-- Абитуриент 7 (Зайцева Елена Викторовна)
+INSERT INTO Exam (EntrantID, Subject, ExamScore, ExamDate)
+VALUES
+(7, 'Русский язык', 88, '2024-06-15'),
+(7, 'Литература', 80, '2024-06-16'),
+(7, 'Обществознание', 75, '2024-06-17');
+
+-- Абитуриент 8 (Попов Сергей Николаевич)
+INSERT INTO Exam (EntrantID, Subject, ExamScore, ExamDate)
+VALUES
+(8, 'Математика', 70, '2024-06-15'),
+(8, 'Русский язык', 65, '2024-06-16'),
+(8, 'Информатика', 68, '2024-06-17');
+Подача заявок на образовательные программы
+-- Абитуриент 1 подаёт на Программную инженерию (ProgramID = 1)
+INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+VALUES
+(1, 1, '2024-06-20', 'Подана');
+
+-- Абитуриент 2 подаёт на Прикладную математику (ProgramID = 2)
+INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+VALUES
+(2, 2, '2024-06-21', 'Подана');
+
+-- Абитуриент 3 подаёт на Программную инженерию (ProgramID = 1)
+INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+VALUES
+(3, 1, '2024-06-22', 'Подана');
+
+-- Абитуриент 4 подаёт на Экономику (ProgramID = 4)
+INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+VALUES
+(4, 4, '2024-06-20', 'Подана');
+
+-- Абитуриент 5 подаёт на Юриспруденцию (ProgramID = 5)
+INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+VALUES
+(5, 5, '2024-06-21', 'Подана');
+
+-- Абитуриент 6 подаёт на Международные отношения (ProgramID = 6)
+INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+VALUES
+(6, 6, '2024-06-22', 'Подана');
+
+-- Абитуриент 7 подаёт на Журналистику (ProgramID = 7)
+INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+VALUES
+(7, 7, '2024-06-23', 'Подана');
+
+-- Абитуриент 8 подаёт на Программную инженерию (ProgramID = 1)
+INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+VALUES
+(8, 1, '2024-06-24', 'Подана');
+<a name="6-разработка-объектов-промежуточного-слоя"></a>
+
+6. Разработка объектов промежуточного слоя
+Объекты промежуточного слоя включают представления (views), хранимые процедуры (stored procedures) и пользовательские функции (UDF). Они облегчают доступ к данным и выполняют часто используемые операции.
+
+Представления
+Представление View_Applications
+Отображает заявки с именами абитуриентов и названиями программ.
+
+CREATE VIEW View_Applications AS
+SELECT
+    a.ApplicationID,
+    e.LastName,
+    e.FirstName,
+    e.MiddleName,
+    p.ProgramName,
+    a.ApplicationDate,
+    a.Status
+FROM
+    Application a
+JOIN
+    Entrant e ON a.EntrantID = e.EntrantID
+JOIN
+    EducationProgram p ON a.EducationProgramID = p.EducationProgramID;
+Пример использования:
+
+SELECT * FROM View_Applications;
+Хранимые процедуры
+Хранимая процедура UpdateApplicationStatus
+Позволяет изменять статус заявки.
+
+CREATE PROCEDURE UpdateApplicationStatus
+    @ApplicationID INT,
+    @NewStatus NVARCHAR(50)
+AS
+BEGIN
+    UPDATE Application
+    SET Status = @NewStatus
+    WHERE ApplicationID = @ApplicationID;
+END;
+Пример вызова процедуры:
+
+EXEC UpdateApplicationStatus @ApplicationID = 1, @NewStatus = 'Принята';
+Результат запроса:
+
+(1 row affected)
+Хранимая процедура SubmitApplication
+Подача заявки с проверкой соответствия требованиям программы.
+
+CREATE PROCEDURE SubmitApplication
+    @EntrantID INT,
+    @EducationProgramID INT,
+    @ApplicationDate DATE
+AS
+BEGIN
+    DECLARE @RequiredSubjects TABLE (Subject NVARCHAR(50), MinScore INT);
+    DECLARE @FailedSubjects INT;
+
+    -- Извлекаем требования по программе
+    INSERT INTO @RequiredSubjects (Subject, MinScore)
+    SELECT Subject, MinScore
+    FROM RequiredExams
+    WHERE ProgramID = @EducationProgramID;
+
+    -- Проверяем, есть ли у абитуриента все необходимые экзамены с достаточными баллами
+    SET @FailedSubjects = (
+        SELECT COUNT(*)
+        FROM @RequiredSubjects r
+        LEFT JOIN Exam e ON e.EntrantID = @EntrantID AND e.Subject = r.Subject
+        WHERE e.ExamScore IS NULL OR e.ExamScore < r.MinScore
+    );
+
+    -- Если все экзамены сданы и баллы достаточные, подаём заявку
+    IF @FailedSubjects = 0
+    BEGIN
+        INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+        VALUES (@EntrantID, @EducationProgramID, @ApplicationDate, 'Подана');
+        PRINT 'Заявка успешно подана.';
+    END
+    ELSE
+    BEGIN
+        PRINT 'Заявка отклонена: не все требования по предметам выполнены.';
+    END
+END;
+Пример вызова процедуры:
+
+EXEC SubmitApplication @EntrantID = 1, @EducationProgramID = 2, @ApplicationDate = '2024-06-23';
+Результат запроса:
+
+(2 rows affected)
+(1 row affected)
+
+Заявка успешно подана.
+Хранимая процедура GetProgramApplications
+Выводит заявки на конкретную образовательную программу, отсортированные по сумме баллов по требуемым экзаменам в порядке убывания.
+
+CREATE PROCEDURE GetProgramApplications
+    @EducationProgramID INT
+AS
+BEGIN
+    SELECT
+        a.ApplicationID,
+        e.EntrantID,
+        e.LastName,
+        e.FirstName,
+        e.MiddleName,
+        p.ProgramName,
+        ISNULL(SUM(ex.ExamScore), 0) AS TotalScore
+    FROM
+        Application a
+    JOIN
+        Entrant e ON a.EntrantID = e.EntrantID
+    JOIN
+        EducationProgram p ON a.EducationProgramID = p.EducationProgramID
+    LEFT JOIN
+        RequiredExams req ON req.ProgramID = p.EducationProgramID
+    LEFT JOIN
+        Exam ex ON ex.EntrantID = e.EntrantID AND ex.Subject = req.Subject
+    WHERE
+        p.EducationProgramID = @EducationProgramID
+    GROUP BY
+        a.ApplicationID, e.EntrantID, e.LastName, e.FirstName, e.MiddleName, p.ProgramName
+    ORDER BY
+        TotalScore DESC;
+END;
+Пример вызова процедуры:
+
+EXEC GetProgramApplications @EducationProgramID = 1;
+Хранимая процедура EnrollStudents
+Определяет и зачисляет n лучших абитуриентов на конкретную программу в зависимости от количества бюджетных мест.
+
+CREATE PROCEDURE EnrollStudents
+    @EducationProgramID INT
+AS
+BEGIN
+    DECLARE @BudgetPlaces INT;
+
+    -- Получаем количество бюджетных мест
+    SELECT @BudgetPlaces = BudgetPlaces
+    FROM EducationProgram
+    WHERE EducationProgramID = @EducationProgramID;
+
+    -- Обновляем статусы заявок
+    WITH RankedApplicants AS (
+        SELECT
+            a.ApplicationID,
+            e.EntrantID,
+            ISNULL(SUM(ex.ExamScore), 0) AS TotalScore,
+            ROW_NUMBER() OVER (ORDER BY ISNULL(SUM(ex.ExamScore), 0) DESC) AS Ranking
+        FROM
+            Application a
+        JOIN
+            Entrant e ON a.EntrantID = e.EntrantID
+        LEFT JOIN
+            RequiredExams req ON req.ProgramID = a.EducationProgramID
+        LEFT JOIN
+            Exam ex ON ex.EntrantID = e.EntrantID AND ex.Subject = req.Subject
+        WHERE
+            a.EducationProgramID = @EducationProgramID
+        GROUP BY
+            a.ApplicationID, e.EntrantID
+    )
+    UPDATE a
+    SET Status = CASE
+        WHEN r.Ranking <= @BudgetPlaces THEN 'Зачислен'
+        ELSE 'Отказано'
+    END
+    FROM Application a
+    JOIN RankedApplicants r ON a.ApplicationID = r.ApplicationID
+    WHERE a.EducationProgramID = @EducationProgramID;
+END;
+Пример вызова процедуры:
+
+EXEC EnrollStudents @EducationProgramID = 1;
+Хранимая процедура GetSuitableProgramsForEntrant
+Создаёт рейтинг программ, наиболее подходящих для абитуриента, учитывая его экзаменационные баллы и требования программ.
+
+CREATE PROCEDURE GetSuitableProgramsForEntrant
+    @EntrantID INT
+AS
+BEGIN
+    WITH SuitablePrograms AS (
+        SELECT
+            p.EducationProgramID,
+            p.ProgramName,
+            p.Faculty,
+            p.EducationLevel,
+            p.BudgetPlaces,
+            ISNULL(SUM(e.ExamScore), 0) AS TotalScore
+        FROM
+            EducationProgram p
+        JOIN
+            RequiredExams req ON req.ProgramID = p.EducationProgramID
+        LEFT JOIN
+            Exam e ON e.EntrantID = @EntrantID AND e.Subject = req.Subject
+        GROUP BY
+            p.EducationProgramID, p.ProgramName, p.Faculty, p.EducationLevel, p.BudgetPlaces
+        HAVING
+            COUNT(CASE WHEN e.ExamScore >= req.MinScore THEN 1 END) = COUNT(req.Subject)
+    )
+    SELECT
+        sp.EducationProgramID,
+        sp.ProgramName,
+        sp.Faculty,
+        sp.EducationLevel,
+        sp.BudgetPlaces,
+        sp.TotalScore,
+        RANK() OVER (ORDER BY sp.TotalScore DESC) AS Ranking
+    FROM
+        SuitablePrograms sp
+    ORDER BY
+        sp.TotalScore DESC;
+END;
+Пример вызова процедуры:
+
+EXEC GetSuitableProgramsForEntrant @EntrantID = 1;
+Пользовательские функции (UDF)
+Функция GetApplicationCount
+Возвращает количество заявок для конкретного абитуриента.
+
+CREATE FUNCTION GetApplicationCount(@EntrantID INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @Count INT;
+    SELECT @Count = COUNT(*)
+    FROM Application
+    WHERE EntrantID = @EntrantID;
+    RETURN @Count;
+END;
+Пример использования функции:
+
+SELECT dbo.GetApplicationCount(1) AS ApplicationCount;
+Функция CheckExamRequirements
+Проверяет, соответствует ли абитуриент требованиям по экзаменам для выбранной программы.
+
+CREATE FUNCTION CheckExamRequirements(
+    @EntrantID INT,
+    @EducationProgramID INT
+)
+RETURNS BIT
+AS
+BEGIN
+    DECLARE @FailedSubjects INT;
+
+    SET @FailedSubjects = (
+        SELECT COUNT(*)
+        FROM RequiredExams req
+        LEFT JOIN Exam ex ON ex.EntrantID = @EntrantID AND ex.Subject = req.Subject
+        WHERE req.ProgramID = @EducationProgramID AND (ex.ExamScore IS NULL OR ex.ExamScore < req.MinScore)
+    );
+
+    IF @FailedSubjects = 0
+        RETURN 1; -- Все требования выполнены
+    ELSE
+        RETURN 0; -- Есть невыполненные требования
+END;
+Пример использования функции:
+
+SELECT dbo.CheckExamRequirements(1, 2) AS RequirementsMet;
+Дополнительные объекты промежуточного слоя
+Представление View_EntrantApplications
+Отображает все заявки конкретного абитуриента с деталями: название программы, статус заявки, место в рейтинге и количество бюджетных мест.
+
+CREATE VIEW View_EntrantApplications AS
+SELECT
+    e.EntrantID,
+    a.ApplicationID,
+    p.ProgramName,
+    a.Status,
+    ISNULL(SUM(ex.ExamScore), 0) AS TotalScore,
+    p.BudgetPlaces,
+    DENSE_RANK() OVER (PARTITION BY p.EducationProgramID ORDER BY ISNULL(SUM(ex.ExamScore), 0) DESC) AS Ranking
+FROM
+    Application a
+JOIN
+    Entrant e ON a.EntrantID = e.EntrantID
+JOIN
+    EducationProgram p ON a.EducationProgramID = p.EducationProgramID
+LEFT JOIN
+    RequiredExams req ON req.ProgramID = p.EducationProgramID
+LEFT JOIN
+    Exam ex ON ex.EntrantID = e.EntrantID AND ex.Subject = req.Subject
+GROUP BY
+    e.EntrantID, a.ApplicationID, p.ProgramName, a.Status, p.BudgetPlaces;
+Пример использования:
+
+SELECT *
+FROM View_EntrantApplications
+WHERE EntrantID = 1;
+Пользовательская функция GetAverageExamScore
+Возвращает средний балл по экзаменам абитуриента.
+
+CREATE FUNCTION GetAverageExamScore(@EntrantID INT)
+RETURNS DECIMAL(5,2)
+AS
+BEGIN
+    DECLARE @AvgScore DECIMAL(5,2);
+    SELECT @AvgScore = AVG(CAST(ExamScore AS DECIMAL(5,2)))
+    FROM Exam
+    WHERE EntrantID = @EntrantID;
+    RETURN @AvgScore;
+END;
+Пример использования функции:
+
+SELECT dbo.GetAverageExamScore(1) AS AverageScore;
+Представление View_EntrantTotalScores
+Отображает общий балл по экзаменам для каждого абитуриента.
+
+CREATE VIEW View_EntrantTotalScores AS
+SELECT
+    e.EntrantID,
+    e.LastName,
+    e.FirstName,
+    e.MiddleName,
+    ISNULL(SUM(ex.ExamScore), 0) AS TotalScore
+FROM
+    Entrant e
+LEFT JOIN
+    Exam ex ON ex.EntrantID = e.EntrantID
+GROUP BY
+    e.EntrantID, e.LastName, e.FirstName, e.MiddleName;
+Пример использования:
+
+SELECT * FROM View_EntrantTotalScores ORDER BY TotalScore DESC;
+Хранимая процедура AddNewEntrant
+Позволяет добавить нового абитуриента в базу данных.
+
+CREATE PROCEDURE AddNewEntrant
+    @LastName NVARCHAR(50),
+    @FirstName NVARCHAR(50),
+    @MiddleName NVARCHAR(50),
+    @DateOfBirth DATE,
+    @Gender CHAR(1),
+    @SNILS CHAR(11),
+    @PassportNumber CHAR(9)
+AS
+BEGIN
+    INSERT INTO Entrant (LastName, FirstName, MiddleName, DateOfBirth, Gender, SNILS, PassportNumber)
+    VALUES (@LastName, @FirstName, @MiddleName, @DateOfBirth, @Gender, @SNILS, @PassportNumber);
+    PRINT 'Новый абитуриент успешно добавлен.';
+END;
+Пример вызова процедуры:
+
+EXEC AddNewEntrant 
+    @LastName = 'Николаев', 
+    @FirstName = 'Сергей', 
+    @MiddleName = 'Васильевич', 
+    @DateOfBirth = '2003-04-12', 
+    @Gender = 'M', 
+    @SNILS = '90123456789', 
+    @PassportNumber = '901234567';
+Хранимая процедура GetSuitablePrograms
+Создаёт рейтинг программ, наиболее подходящих для абитуриента, учитывая его экзаменационные баллы и требования программ.
+
+CREATE PROCEDURE GetSuitableProgramsForEntrant
+    @EntrantID INT
+AS
+BEGIN
+    WITH SuitablePrograms AS (
+        SELECT
+            p.EducationProgramID,
+            p.ProgramName,
+            p.Faculty,
+            p.EducationLevel,
+            p.BudgetPlaces,
+            ISNULL(SUM(e.ExamScore), 0) AS TotalScore
+        FROM
+            EducationProgram p
+        JOIN
+            RequiredExams req ON req.ProgramID = p.EducationProgramID
+        LEFT JOIN
+            Exam e ON e.EntrantID = @EntrantID AND e.Subject = req.Subject
+        GROUP BY
+            p.EducationProgramID, p.ProgramName, p.Faculty, p.EducationLevel, p.BudgetPlaces
+        HAVING
+            COUNT(CASE WHEN e.ExamScore >= req.MinScore THEN 1 END) = COUNT(req.Subject)
+    )
+    SELECT
+        sp.EducationProgramID,
+        sp.ProgramName,
+        sp.Faculty,
+        sp.EducationLevel,
+        sp.BudgetPlaces,
+        sp.TotalScore,
+        RANK() OVER (ORDER BY sp.TotalScore DESC) AS Ranking
+    FROM
+        SuitablePrograms sp
+    ORDER BY
+        sp.TotalScore DESC;
+END;
+Пример вызова процедуры:
+
+EXEC GetSuitableProgramsForEntrant @EntrantID = 1;
+Примечания:
+
+WITH SuitablePrograms AS (...): Определяет временную таблицу, содержащую программы, для которых абитуриент соответствует всем требованиям по экзаменам.
+RANK() OVER (ORDER BY sp.TotalScore DESC): Вычисляет ранжирование программ по сумме баллов абитуриента в порядке убывания.
+HAVING COUNT(...) = COUNT(req.Subject): Убедитесь, что абитуриент сдал все требуемые экзамены с минимальными баллами.
+Хранимая процедура EnrollTopApplicants
+Определяет и зачисляет n лучших абитуриентов на конкретную программу в зависимости от количества бюджетных мест.
+
+CREATE PROCEDURE EnrollTopApplicants
+    @EducationProgramID INT
+AS
+BEGIN
+    DECLARE @BudgetPlaces INT;
+
+    -- Получаем количество бюджетных мест
+    SELECT @BudgetPlaces = BudgetPlaces
+    FROM EducationProgram
+    WHERE EducationProgramID = @EducationProgramID;
+
+    -- Обновляем статусы заявок
+    WITH RankedApplicants AS (
+        SELECT
+            a.ApplicationID,
+            e.EntrantID,
+            ISNULL(SUM(ex.ExamScore), 0) AS TotalScore,
+            ROW_NUMBER() OVER (ORDER BY ISNULL(SUM(ex.ExamScore), 0) DESC) AS Ranking
+        FROM
+            Application a
+        JOIN
+            Entrant e ON a.EntrantID = e.EntrantID
+        LEFT JOIN
+            RequiredExams req ON req.ProgramID = a.EducationProgramID
+        LEFT JOIN
+            Exam ex ON ex.EntrantID = e.EntrantID AND ex.Subject = req.Subject
+        WHERE
+            a.EducationProgramID = @EducationProgramID AND a.Status = 'Подана'
+        GROUP BY
+            a.ApplicationID, e.EntrantID
+    )
+    UPDATE a
+    SET Status = CASE
+        WHEN r.Ranking <= @BudgetPlaces THEN 'Зачислен'
+        ELSE 'Отказано'
+    END
+    FROM Application a
+    JOIN RankedApplicants r ON a.ApplicationID = r.ApplicationID
+    WHERE a.EducationProgramID = @EducationProgramID AND a.Status = 'Подана';
+END;
+Пример вызова процедуры:
+
+EXEC EnrollTopApplicants @EducationProgramID = 1;
+Примечания:
+
+WHERE a.Status = 'Подана': Обрабатываются только заявки со статусом 'Подана'.
+ROW_NUMBER() OVER (ORDER BY ISNULL(SUM(ex.ExamScore), 0) DESC): Ранжирует абитуриентов по сумме баллов.
+@BudgetPlaces: Определяет количество бюджетных мест для программы.
+UPDATE... SET Status: Обновляет статус заявок на 'Зачислен' для лучших абитуриентов и 'Отказано' для остальных.
+Хранимая процедура GetTopApplicants
+Возвращает список топ n абитуриентов по сумме баллов для конкретной программы.
+
+CREATE PROCEDURE GetTopApplicants
+    @EducationProgramID INT,
+    @TopN INT
+AS
+BEGIN
+    SELECT TOP (@TopN)
+        a.ApplicationID,
+        e.EntrantID,
+        e.LastName,
+        e.FirstName,
+        e.MiddleName,
+        p.ProgramName,
+        ISNULL(SUM(ex.ExamScore), 0) AS TotalScore
+    FROM
+        Application a
+    JOIN
+        Entrant e ON a.EntrantID = e.EntrantID
+    JOIN
+        EducationProgram p ON a.EducationProgramID = p.EducationProgramID
+    LEFT JOIN
+        RequiredExams req ON req.ProgramID = p.EducationProgramID
+    LEFT JOIN
+        Exam ex ON ex.EntrantID = e.EntrantID AND ex.Subject = req.Subject
+    WHERE
+        p.EducationProgramID = @EducationProgramID
+    GROUP BY
+        a.ApplicationID, e.EntrantID, e.LastName, e.FirstName, e.MiddleName, p.ProgramName
+    ORDER BY
+        TotalScore DESC;
+END;
+Пример вызова процедуры:
+
+EXEC GetTopApplicants @EducationProgramID = 1, @TopN = 5;
+Хранимая процедура GetStudentApplicationsDetails
+Предоставляет подробную информацию о всех заявках конкретного абитуриента, включая название программы, статус заявки, место в рейтинге и количество бюджетных мест.
+
+CREATE PROCEDURE GetStudentApplicationsDetails
+    @EntrantID INT
+AS
+BEGIN
+    SELECT
+        p.ProgramName AS Программа,
+        a.Status AS Статус,
+        r.Ranking AS [Место в рейтинге],
+        p.BudgetPlaces AS [Кол-во бюджетных мест]
+    FROM
+        Application a
+    JOIN
+        EducationProgram p ON a.EducationProgramID = p.EducationProgramID
+    JOIN (
+        SELECT
+            a.ApplicationID,
+            RANK() OVER (PARTITION BY a.EducationProgramID ORDER BY ISNULL(SUM(ex.ExamScore), 0) DESC) AS Ranking
+        FROM
+            Application a
+        JOIN
+            RequiredExams req ON req.ProgramID = a.EducationProgramID
+        JOIN
+            Exam ex ON ex.EntrantID = a.EntrantID AND ex.Subject = req.Subject
+        WHERE
+            a.EntrantID = @EntrantID
+        GROUP BY
+            a.ApplicationID
+    ) r ON a.ApplicationID = r.ApplicationID
+    WHERE
+        a.EntrantID = @EntrantID
+    ORDER BY
+        p.ProgramName;
+END;
+Пример вызова процедуры:
+
+EXEC GetStudentApplicationsDetails @EntrantID = 1;
+Пример ожидаемого результата:
+
+Программа	Статус	Место в рейтинге	Кол-во бюджетных мест
+Программная инженерия	Зачислен	1	10
+Прикладная математика	Отказано	5	15
+Хранимая процедура GetApplicationsByStatus
+Позволяет получить все заявки с определённым статусом.
+
+CREATE PROCEDURE GetApplicationsByStatus
+    @Status NVARCHAR(50)
+AS
+BEGIN
+    SELECT
+        a.ApplicationID,
+        e.LastName,
+        e.FirstName,
+        e.MiddleName,
+        p.ProgramName,
+        a.ApplicationDate,
+        a.Status
+    FROM
+        Application a
+    JOIN
+        Entrant e ON a.EntrantID = e.EntrantID
+    JOIN
+        EducationProgram p ON a.EducationProgramID = p.EducationProgramID
+    WHERE
+        a.Status = @Status
+    ORDER BY
+        a.ApplicationDate DESC;
+END;
+Пример вызова процедуры:
+
+EXEC GetApplicationsByStatus @Status = 'Подана';
+7. Разработка стратегии резервного копирования
+Для обеспечения сохранности данных необходимо регулярно выполнять резервное копирование базы данных. Рекомендуется использовать полное резервное копирование еженедельно и дифференциальное ежедневно.
+
+Пример команды для создания полного резервного копирования:
+BACKUP DATABASE UniversityAdmission
+TO DISK = 'C:\Backup\UniversityAdmission_Full.bak'
+WITH FORMAT,
+     INIT,
+     NAME = 'Full Backup of UniversityAdmission';
+Пример команды для создания дифференциального резервного копирования:
+BACKUP DATABASE UniversityAdmission
+TO DISK = 'C:\Backup\UniversityAdmission_Diff.bak'
+WITH DIFFERENTIAL,
+     NAME = 'Differential Backup of UniversityAdmission';
+Рекомендации по резервному копированию:
+
+Автоматизация:
+Настройте задания SQL Server Agent для автоматического выполнения резервных копий в заданное время.
+Хранение резервных копий:
+Храните резервные копии на отдельном физическом носителе или в облачном хранилище для защиты от аппаратных сбоев.
+Тестирование восстановления:
+Регулярно проверяйте возможность восстановления базы данных из резервных копий.
+Мониторинг:
+Настройте уведомления о статусе резервного копирования для своевременного обнаружения проблем.
+8. Заключение
+Разработанная база данных UniversityAdmission обеспечивает эффективное управление процессами приёма абитуриентов в университет. Она включает:
+
+Структурированные таблицы для хранения информации об абитуриентах, образовательных программах, заявках и экзаменах.
+Ограничения целостности для обеспечения корректности и достоверности данных.
+Представления, хранимые процедуры и функции для упрощения доступа к данным и автоматизации процессов.
+Стратегию резервного копирования для защиты данных от потери.
+Дополнительные объекты промежуточного слоя, такие как процедуры для вывода топовых абитуриентов, зачисления студентов и детального просмотра заявок, делают систему более гибкой и функциональной. Это позволяет приёмной комиссии быстро обрабатывать заявки, контролировать соответствие абитуриентов требованиям программ и принимать обоснованные решения о приёме. Автоматизация процессов снижает вероятность ошибок, ускоряет работу и обеспечивает удобный доступ к необходимой информации.
+
+Дополнительные рекомендации:
+
+Документирование:
+Ведите журнал изменений для отслеживания всех внесённых корректировок и обновлений.
+Тестирование:
+Проведите всестороннее тестирование всех новых объектов на корректность работы с добавленными данными.
+Оптимизация:
+При необходимости оптимизируйте запросы для повышения производительности.
+Безопасность:
+Настройте права доступа для пользователей базы данных, ограничив их только необходимыми привилегиями.
+Обучение пользователей:
+Проведите обучение для сотрудников приёмной комиссии по использованию новых функций и процедур.
+Если у вас возникнут дополнительные вопросы или потребуется помощь с дальнейшими доработками, не стесняйтесь обращаться!

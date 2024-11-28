@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\addition"
   ],
-  "SelectedNode": "\\3.CREATE_TABLE_EducationProgram.sql",
+  "SelectedNode": "\\20.CREATE_PROCEDURE_EnrollStudents.sql",
   "PreviewInSolutionExplorer": false
 }

@@ -16,8 +16,6 @@ BEGIN
         SELECT
             p.EducationProgramID,
             p.ProgramName,
-            p.Faculty,
-            p.EducationLevel,
             p.BudgetPlaces,
             SUM(req.MinScore) AS TotalMinScore
         FROM
@@ -34,8 +32,6 @@ BEGIN
     SELECT
         sp.EducationProgramID,
         sp.ProgramName,
-        sp.Faculty,
-        sp.EducationLevel,
         sp.BudgetPlaces,
         sp.TotalMinScore,
         DENSE_RANK() OVER (ORDER BY sp.TotalMinScore DESC) AS Ranking

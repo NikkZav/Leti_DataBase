@@ -1,3 +1,5 @@
+USE UniversityAdmission;
+GO
 CREATE PROCEDURE GetStudentApplicationsDetails
     @EntrantID INT
 AS

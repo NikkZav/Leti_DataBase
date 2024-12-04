@@ -2,4 +2,4 @@ USE UniversityAdmission;
 GO
 SELECT *
 FROM View_EntrantApplications
-WHERE EntrantID = 1;
+WHERE EntrantID = 100;

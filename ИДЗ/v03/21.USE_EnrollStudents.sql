@@ -1,3 +1,3 @@
 USE UniversityAdmission;
 GO
-EXEC EnrollStudents @EducationProgramID = 1;
+EXEC MySchema.EnrollStudents @EducationProgramID = 1;

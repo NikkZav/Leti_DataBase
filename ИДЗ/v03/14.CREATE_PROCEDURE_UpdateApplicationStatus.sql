@@ -1,9 +1,9 @@
-CREATE PROCEDURE UpdateApplicationStatus
+CREATE PROCEDURE MySchema.UpdateApplicationStatus
     @ApplicationID INT,
     @NewStatus NVARCHAR(50)
 AS
 BEGIN
-    UPDATE Application
+    UPDATE MySchema.Application
     SET Status = @NewStatus
     WHERE ApplicationID = @ApplicationID;
 END;

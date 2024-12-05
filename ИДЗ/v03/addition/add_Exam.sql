@@ -9,7 +9,7 @@ BEGIN
     DECLARE @PhysScore INT = FLOOR(RAND() * 51) + 50;
     DECLARE @InfScore INT = FLOOR(RAND() * 51) + 50;
 
-    INSERT INTO Exam (EntrantID, Subject, ExamScore, ExamDate)
+    INSERT INTO MySchema.Exam (EntrantID, Subject, ExamScore, ExamDate)
     VALUES
     (@EntrantID, 'Математика', @MathScore, '2024-06-15'),
     (@EntrantID, 'Русский язык', @RusScore, '2024-06-16'),

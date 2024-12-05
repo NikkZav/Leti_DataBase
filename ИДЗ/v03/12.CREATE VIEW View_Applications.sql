@@ -1,4 +1,4 @@
-CREATE VIEW View_Applications AS
+CREATE VIEW MySchema.View_Applications AS
 SELECT 
     a.ApplicationID,
     e.LastName,
@@ -8,8 +8,8 @@ SELECT
     a.ApplicationDate,
     a.Status
 FROM 
-    Application a
+    MySchema.Application a
 JOIN 
-    Entrant e ON a.EntrantID = e.EntrantID
+    MySchema.Entrant e ON a.EntrantID = e.EntrantID
 JOIN 
-    EducationProgram p ON a.EducationProgramID = p.EducationProgramID;
+    MySchema.EducationProgram p ON a.EducationProgramID = p.EducationProgramID;

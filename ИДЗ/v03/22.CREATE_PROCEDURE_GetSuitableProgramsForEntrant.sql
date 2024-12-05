@@ -1,12 +1,7 @@
 USE UniversityAdmission;
 GO
 
--- ������� ������������ ���������, ���� ��� ����
-IF OBJECT_ID('GetSuitableProgramsForEntrant', 'P') IS NOT NULL
-    DROP PROCEDURE GetSuitableProgramsForEntrant;
-GO
-
-CREATE PROCEDURE GetSuitableProgramsForEntrant
+CREATE PROCEDURE MySchema.GetSuitableProgramsForEntrant
     @EntrantID INT
 AS
 BEGIN
@@ -19,11 +14,11 @@ BEGIN
             p.BudgetPlaces,
             SUM(req.MinScore) AS TotalMinScore
         FROM
-            EducationProgram p
+            MySchema.EducationProgram p
         JOIN
-            RequiredExams req ON req.ProgramID = p.EducationProgramID
+            MySchema.RequiredExams req ON req.ProgramID = p.EducationProgramID
         LEFT JOIN
-            Exam e ON e.EntrantID = @EntrantID AND e.Subject = req.Subject
+            MySchema.Exam e ON e.EntrantID = @EntrantID AND e.Subject = req.Subject
         GROUP BY
             p.EducationProgramID, p.ProgramName, p.Faculty, p.EducationLevel, p.BudgetPlaces
         HAVING

@@ -11,9 +11,9 @@ DECLARE @ProgramIDs TABLE (RowNum INT IDENTITY(0,1), ProgramID INT);
 DECLARE @Index INT;
 DECLARE @TotalPrograms INT;
 
--- Заполняем табличную переменную всеми ProgramID из EducationProgram
+-- Заполняем табличную переменную всеми ProgramID из MySchema.EducationProgram
 INSERT INTO @ProgramIDs (ProgramID)
-SELECT EducationProgramID FROM EducationProgram ORDER BY EducationProgramID;
+SELECT EducationProgramID FROM MySchema.EducationProgram ORDER BY EducationProgramID;
 
 -- Получаем общее количество программ
 SELECT @TotalPrograms = COUNT(*) FROM @ProgramIDs;
@@ -26,15 +26,15 @@ BEGIN
     SET @ApplicationDate = DATEADD(DAY, (@i - 9), '20240620'); -- Используем формат 'YYYYMMDD'
 
     -- Проверяем, соответствует ли абитуриент требованиям программы
-    IF dbo.CheckExamRequirements(@EntrantID, @ProgramID) = 1
+    IF MySchema.CheckExamRequirements(@EntrantID, @ProgramID) = 1
     BEGIN
         -- Проверяем, не подана ли уже заявка на эту программу
         IF NOT EXISTS (
-            SELECT 1 FROM Application
+            SELECT 1 FROM MySchema.Application
             WHERE EntrantID = @EntrantID AND EducationProgramID = @ProgramID
         )
         BEGIN
-            INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+            INSERT INTO MySchema.Application (EntrantID, EducationProgramID, ApplicationDate, Status)
             VALUES (@EntrantID, @ProgramID, @ApplicationDate, 'Подана');
         END
     END

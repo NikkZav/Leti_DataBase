@@ -1,3 +1,3 @@
 USE UniversityAdmission;
 GO
-SELECT dbo.GetApplicationCount(1) AS ApplicationCount;
+SELECT MySchema.GetApplicationCount(1) AS ApplicationCount;

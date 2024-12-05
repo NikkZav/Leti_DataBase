@@ -1,6 +1,6 @@
 USE UniversityAdmission;
 GO
-CREATE PROCEDURE GetProgramApplications
+CREATE PROCEDURE MySchema.GetProgramApplications
     @EducationProgramID INT
 AS
 BEGIN
@@ -11,15 +11,15 @@ BEGIN
         p.ProgramName,
         ISNULL(SUM(ex.ExamScore), 0) AS TotalScore
     FROM
-        Application a
+        MySchema.Application a
     JOIN
-        Entrant e ON a.EntrantID = e.EntrantID
+        MySchema.Entrant e ON a.EntrantID = e.EntrantID
     JOIN
-        EducationProgram p ON a.EducationProgramID = p.EducationProgramID
+        MySchema.EducationProgram p ON a.EducationProgramID = p.EducationProgramID
     LEFT JOIN
-        RequiredExams req ON req.ProgramID = p.EducationProgramID
+        MySchema.RequiredExams req ON req.ProgramID = p.EducationProgramID
     LEFT JOIN
-        Exam ex ON ex.EntrantID = e.EntrantID AND ex.Subject = req.Subject
+        MySchema.Exam ex ON ex.EntrantID = e.EntrantID AND ex.Subject = req.Subject
     WHERE
         p.EducationProgramID = @EducationProgramID
     GROUP BY

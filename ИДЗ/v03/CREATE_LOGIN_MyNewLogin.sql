@@ -1,0 +1,1 @@
+CREATE LOGIN MyNewLogin WITH PASSWORD = 'StrongPassword123';

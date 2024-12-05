@@ -1,5 +1,5 @@
 USE UniversityAdmission;
 GO
 SELECT *
-FROM View_EntrantApplications
+FROM MySchema.View_EntrantApplications
 WHERE EntrantID = 100;

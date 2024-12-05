@@ -1,4 +1,4 @@
-CREATE FUNCTION MySchema.CheckExamRequirements(
+CREATE FUNCTION CheckExamRequirements(
     @EntrantID INT,
     @EducationProgramID INT
 )

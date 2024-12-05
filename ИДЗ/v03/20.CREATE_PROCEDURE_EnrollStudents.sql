@@ -1,4 +1,4 @@
-CREATE PROCEDURE EnrollStudents
+CREATE PROCEDURE MySchema.EnrollStudents
     @EducationProgramID INT
 AS
 BEGIN 
@@ -6,7 +6,7 @@ BEGIN
 
     -- Получаем количество бюджетных мест
     SELECT @BudgetPlaces = BudgetPlaces
-    FROM EducationProgram
+    FROM MySchema.EducationProgram
     WHERE EducationProgramID = @EducationProgramID;
 
     -- Обновляем статусы заявок
@@ -17,13 +17,13 @@ BEGIN
             ISNULL(SUM(ex.ExamScore), 0) AS TotalScore,
             ROW_NUMBER() OVER (ORDER BY ISNULL(SUM(ex.ExamScore), 0) DESC) AS Ranking
         FROM
-            Application a
+            MySchema.Application a
         JOIN
-            Entrant e ON a.EntrantID = e.EntrantID
+            MySchema.Entrant e ON a.EntrantID = e.EntrantID
         LEFT JOIN
-            RequiredExams req ON req.ProgramID = a.EducationProgramID
+            MySchema.RequiredExams req ON req.ProgramID = a.EducationProgramID
         LEFT JOIN
-            Exam ex ON ex.EntrantID = e.EntrantID AND ex.Subject = req.Subject
+            MySchema.Exam ex ON ex.EntrantID = e.EntrantID AND ex.Subject = req.Subject
         WHERE
             a.EducationProgramID = @EducationProgramID
         GROUP BY
@@ -34,7 +34,7 @@ BEGIN
         WHEN r.Ranking <= @BudgetPlaces THEN 'Зачислен'
         ELSE 'Отказано'
     END
-    FROM Application a
+    FROM MySchema.Application a
     JOIN RankedApplicants r ON a.ApplicationID = r.ApplicationID
     WHERE a.EducationProgramID = @EducationProgramID;
 END;

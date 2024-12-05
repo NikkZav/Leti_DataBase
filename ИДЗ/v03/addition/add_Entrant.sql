@@ -2,7 +2,7 @@ DECLARE @i INT = 9;
 
 WHILE @i <= 108
 BEGIN
-    INSERT INTO Entrant (LastName, FirstName, MiddleName, DateOfBirth, Gender, SNILS, PassportNumber)
+    INSERT INTO MySchema.Entrant (LastName, FirstName, MiddleName, DateOfBirth, Gender, SNILS, PassportNumber)
     VALUES (
         CONCAT('Фамилия', @i),
         CONCAT('Имя', @i),

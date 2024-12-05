@@ -1,1 +1,1 @@
-EXEC UpdateApplicationStatus @ApplicationID = 1, @NewStatus = 'Принята';
+EXEC MySchema.UpdateApplicationStatus @ApplicationID = 1, @NewStatus = 'Принята';

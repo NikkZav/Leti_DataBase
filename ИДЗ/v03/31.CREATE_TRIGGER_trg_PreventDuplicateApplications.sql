@@ -1,13 +1,13 @@
 USE UniversityAdmission;
 GO
-CREATE TRIGGER trg_PreventDuplicateApplications
-ON Application
+CREATE TRIGGER MySchema.trg_PreventDuplicateApplications
+ON MySchema.Application
 AFTER INSERT
 AS
 BEGIN
     IF EXISTS (
         SELECT 1
-        FROM Application a
+        FROM MySchema.Application a
         JOIN inserted i ON a.EntrantID = i.EntrantID AND a.EducationProgramID = i.EducationProgramID
     )
     BEGIN

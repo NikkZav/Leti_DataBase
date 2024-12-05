@@ -1,3 +1,3 @@
 USE UniversityAdmission;
 GO
-EXEC GetProgramApplications @EducationProgramID = 1;
+EXEC MySchema.GetProgramApplications @EducationProgramID = 1;

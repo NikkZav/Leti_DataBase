@@ -1,5 +1,5 @@
 -- Добавляем новые технические программы
-INSERT INTO EducationProgram (ProgramName, Faculty, EducationLevel, BudgetPlaces)
+INSERT INTO MySchema.EducationProgram (ProgramName, Faculty, EducationLevel, BudgetPlaces)
 VALUES
 ('Компьютерные науки', 'Факультет информационных технологий', 'Бакалавриат', 25),
 ('Электронная инженерия', 'Факультет электроники', 'Бакалавриат', 20),

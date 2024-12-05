@@ -1,3 +1,3 @@
 USE UniversityAdmission;
 GO
-EXEC GetSuitableProgramsForEntrant @EntrantID = 100;
+EXEC MySchema.GetSuitableProgramsForEntrant @EntrantID = 100;

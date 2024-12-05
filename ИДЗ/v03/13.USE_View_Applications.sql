@@ -1,3 +1,3 @@
 USE UniversityAdmission;
 GO
-SELECT * FROM View_Applications;
+SELECT * FROM MySchema.View_Applications;

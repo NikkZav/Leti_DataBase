@@ -1,6 +1,6 @@
 USE UniversityAdmission;
 GO
-ALTER PROCEDURE SubmitApplication
+CREATE PROCEDURE MySchema.SubmitApplication
     @EntrantID INT,
     @EducationProgramID INT,
     @ApplicationDate DATE
@@ -8,7 +8,7 @@ AS
 BEGIN
     -- Проверяем, есть ли уже поданная заявка
     IF EXISTS (
-        SELECT 1 FROM Application
+        SELECT 1 FROM MySchema.Application
         WHERE EntrantID = @EntrantID AND EducationProgramID = @EducationProgramID
     )
     BEGIN
@@ -17,9 +17,9 @@ BEGIN
     END
 
     -- Проверяем соответствие экзаменационным требованиям
-    IF dbo.CheckExamRequirements(@EntrantID, @EducationProgramID) = 1
+    IF MySchema.CheckExamRequirements(@EntrantID, @EducationProgramID) = 1
     BEGIN
-        INSERT INTO Application (EntrantID, EducationProgramID, ApplicationDate, Status)
+        INSERT INTO MySchema.Application (EntrantID, EducationProgramID, ApplicationDate, Status)
         VALUES (@EntrantID, @EducationProgramID, @ApplicationDate, 'Подана');
         PRINT 'Заявка успешно подана.';
     END

@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\addition"
   ],
-  "SelectedNode": "\\19.USE_GetProgramApplications.sql",
+  "SelectedNode": "\\7.INSERT_INTO_Entrant.sql",
   "PreviewInSolutionExplorer": false
 }

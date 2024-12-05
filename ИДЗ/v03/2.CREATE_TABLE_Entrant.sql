@@ -1,4 +1,4 @@
-CREATE TABLE Entrant (
+CREATE TABLE MySchema.Entrant (
     EntrantID INT IDENTITY(1,1) PRIMARY KEY,
     LastName NVARCHAR(50) NOT NULL,
     FirstName NVARCHAR(50) NOT NULL,
